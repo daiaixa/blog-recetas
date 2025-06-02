@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
+
 
 class CategoryController extends Controller
 {
@@ -26,19 +27,18 @@ class CategoryController extends Controller
 
     # se crea un Form Request para centralizar las reglas de validacion
     # php artisan make:request UpdateCategoryRequest
-    public function store(UpdateConfigRequest $request)
+    public function store(UpdateCategoryRequest $request)
     {
         $categoria = Category::create($request->all());
 
         return redirect()
             ->route('categories.index')
-            ->with('success', "Se ha creado correctamente");
-        //aca debe hacer la persistencia
+            ->with('success', 'Se ha creado correctamente');
     }
 
-    public function edit(Category $categ)
+    public function edit(Category $categoria)
     {
-        return view('categories.edit', compact('categ'));
+        return view('categories.edit', compact('categoria'));
     }
 
     public function update(Request $request, Category $categoria)
