@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Requests\RecipeRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('welcome');})->name('bienvenida');
 
 Route::resource('categories', CategoryController::class);
+
+Route::resource('ingredients', IngredientController::class)->except('show');
+
+Route::resource('recipes', RecipeController::class);

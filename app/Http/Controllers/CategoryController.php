@@ -20,8 +20,9 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
-    public function show(Category $categoria)
+    public function show($id)
     {
+        $categoria=Category::find($id);
         return view('categories.show', compact('categoria'));
     }
 
@@ -43,7 +44,7 @@ class CategoryController extends Controller
         return view('categories.edit', compact('categoria'));
     }
 
-    public function update(Request $request, $categoria)
+    public function update(UpdateCategoryRequest $request, $categoria)
     {
         $categoria = Category::find($categoria);
 

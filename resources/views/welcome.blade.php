@@ -63,7 +63,7 @@
     <!-- TODAS LAS RECETAS -->
     <section>
         <br>
-        <a href="">
+        <a href={{ route('categories.index') }}>
             <h3 class="text-star ms-3 mt-3 mb-3">Todas las recetas</h3>
         </a>
         <br>

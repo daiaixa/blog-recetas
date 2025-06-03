@@ -1,9 +1,8 @@
 <x-app-layout>
-
     <br>
     <br>
     <div class="container-md align-items-center">
-        <a class="btn btn-primary" href={{ route('categories.index') }} role="button">
+        <a class="btn btn-primary" href={{ route('ingredients.index') }} role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -18,18 +17,10 @@
     <br>
     <div class="container text-center">
         <div class="row justify-content-center card border-dark mb-3">
-            <div class="card-header">Categoria</div>
+            <div class="card-header">Ingrediente</div>
             <div class="card-body">
-                <h5 class="card-title">{{ $categoria->name }}</h5>
-                @if (empty($categoria->description ))
-                    <p class="card-text">Sin descripción</p>
-                @else
-                    <p class="card-text">{{ $categoria->description }}</p>
-                @endif
+                <h5 class="card-title">{{ $ingrediente->name }}</h5>
             </div>
         </div>
     </div>
-
-
-
 </x-app-layout>

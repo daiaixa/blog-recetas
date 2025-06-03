@@ -10,8 +10,9 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = ['name', 'description'];
 
-    //metodo de validacion
-
-    //para que en la url no sea el id, sino el nombre de la categoria
+    public function recipe() 
+    {
+        return $this->hasMany(Recipe::class);
+    }
 
 }

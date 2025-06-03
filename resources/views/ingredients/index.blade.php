@@ -1,4 +1,3 @@
-<!-- -->
 
 <x-app-layout>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,7 +16,7 @@
 
     <div class="container">
         <div>
-            <h3>CATEGORIAS: </h3>
+            <h3>Ingredientes: </h3>
             <a class="btn btn-primary me-3" href={{ route('bienvenida') }} role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
@@ -28,34 +27,24 @@
             </svg>
             Voler atrás
         </a>
-            <a href="{{ route('categories.create') }}" class="btn btn-primary">
+            <a href="{{ route('ingredients.create') }}" class="btn btn-primary">
                 <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor"
                     class="bi bi-plus" viewBox="0 0 16 16">
                     <path
                         d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                 </svg> Crear</a>
         </div>
-        @if (empty($categorias))
-            <p class="text-danger">No hay categorías que mostrar</p>
+        @if (empty($ingredientes))
+            <p class="text-danger">No hay ingredientes que mostrar</p>
         @endif
 
-        @foreach ($categorias as $categoria)
+        @foreach ($ingredientes as $ingrediente)
             <div class="row justify-content-center border border p-2 border-opacity-25 mt-2 p-lg-4"> 
                 <div class="col-8 flex-column justify-content-center align-items-center">
-                    <h5 class="m-0"> {{ $categoria->name }}</h5>
-                    <p class="m-0"> {{ $categoria->description }}</p>
+                    <h5 class="m-0"> {{ $ingrediente->name }}</h5>
                 </div>
                 <div class="col-3">
-                    <a href="{{ route('categories.show', $categoria) }}" class="btn btn-primary mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-eye" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                            <path
-                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                        </svg>
-                        Ver</a>
-                    <a href="{{ route('categories.edit', $categoria) }}" class="btn btn-primary mt-1">
+                    <a href="{{ route('ingredients.edit', $ingrediente) }}" class="btn btn-primary mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -65,7 +54,7 @@
                         </svg>
                         Editar</a>
                     <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal"
-                        data-bs-target="#modalCategory{{ $categoria->id }}">
+                        data-bs-target="#modalCategory{{ $ingrediente->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -77,21 +66,21 @@
                     </button>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modalCategory{{ $categoria->id }}" tabindex="-1"
-                    aria-labelledby="modalCategoryLabel{{ $categoria->id }}" aria-hidden="true">
+                <div class="modal fade" id="modalCategory{{ $ingrediente->id }}" tabindex="-1"
+                    aria-labelledby="modalCategoryLabel{{ $ingrediente->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCategoryLabel{{ $categoria->id }}">
+                                <h5 class="modal-title" id="modalCategoryLabel{{ $ingrediente->id }}">
                                     Está por eliminar un elemento
                                 </h5>
                             </div>
                             <div class="modal-body">
-                                ¿Estás seguro de que deseas eliminar la categoría "{{ $categoria->name }}"?
+                                ¿Estás seguro de que deseas eliminar el ingrediente "{{ $ingrediente->name }}"?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                <form action="{{ route('categories.destroy', $categoria) }}" method="POST">
+                                <form action="{{ route('ingredients.destroy', $ingrediente) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Eliminar post</button>
