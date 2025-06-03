@@ -28,7 +28,8 @@
             </button>
         </div>
     </section>
-    <!-- RECETAS DESTACADAS las que tenga mcas comentarios-->
+
+    <!-- RECETAS DESTACADAS -->
     <section>
         <h1 class="text-star ms-3 mt-3 mb-3">Recetas destacadas</h1>
         <!-- estaria bueno que cargue las tarjetas con las tres recetas mas destacadas -->
@@ -61,7 +62,15 @@
     </section>
     <!-- TODAS LAS RECETAS -->
     <section>
-        <h1 class="text-star ms-3 mt-3 mb-3">Recetas destacadas</h1>
+        <br>
+        <a href="">
+            <h3 class="text-star ms-3 mt-3 mb-3">Todas las recetas</h3>
+        </a>
+        <br>
+        <a href="">
+            <h3 class="text-star ms-3 mt-3 mb-3">Recetas por categorias</h3>
+        </a>
+
         <!-- que se genere la lista dinamicamente -->
     </section>
 

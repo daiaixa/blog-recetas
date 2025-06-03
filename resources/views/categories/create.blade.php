@@ -3,7 +3,7 @@
     <br>
     <!-- boton atras -->
     <div class="container-md align-items-center">
-        <a class="btn btn-primary" href='/' role="button">
+        <a class="btn btn-primary" href={{ route('categories.index') }} role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"

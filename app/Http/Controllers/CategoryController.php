@@ -36,13 +36,17 @@ class CategoryController extends Controller
             ->with('success', 'Se ha creado correctamente');
     }
 
-    public function edit(Category $categoria)
+    public function edit($id)
     {
+        $categoria = Category::find($id);
+        //dd($categoria->id);
         return view('categories.edit', compact('categoria'));
     }
 
-    public function update(Request $request, Category $categoria)
+    public function update(Request $request, $categoria)
     {
+        $categoria = Category::find($categoria);
+
         $categoria->update($request->all());
 
         return redirect()
@@ -50,8 +54,9 @@ class CategoryController extends Controller
             ->with('success', "Se ha modificado correctamente");
     }
 
-    public function destroy(Category $categoria)
+    public function destroy($id)
     {
+        $categoria = Category::find($id);
         $categoria->delete();
         return redirect()
             ->route('categories.index')
