@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeRequest;
+use App\Models\Category;
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 
@@ -16,21 +18,32 @@ class RecipeController extends Controller
 
     public function create()
     {
-        return view('recipes.create');
+        $categorias = Category::all();
+        $ingredientes = Ingredient::orderBy('name')->get();
+        return view('recipes.create', compact('categorias', 'ingredientes'));
     }
 
     public function show(Recipe $receta)
     {
-       // $ingrediente=Ingredient::find($id);
+        // $ingrediente=Ingredient::find($id);
         return view('recipes.show', compact('receta'));
     }
 
     # se crea un Form Request para centralizar las reglas de validacion
-    # php artisan make:request UpdateCategoryRequest
+    # php artisan make:request ModeloRequest
     public function store(RecipeRequest $request)
     {
-        $ingrediente = Recipe::create($request->all());
+       // dd($request->ingredients);
+        $receta = Recipe::create($request->except('ingredients')); //que guarde todo menos los ingredientes
 
+        //previo filtrado para solo almacenar aquellos que tienen una cantidad
+        $ingredientesValidos = array_filter(
+            $request->input('ingredients', []),
+            fn($data) => !empty($data['amount'])
+        ); 
+        $receta->ingredients()->sync($ingredientesValidos); //teniendo en cuenta como viene del formulario
+
+        
         return redirect()
             ->route('recipes.index')
             ->with('success', 'Se ha creado correctamente');

@@ -35,8 +35,9 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row mb-3"> <!-- descripcion de los pasos -->
-                    <div class="col-12 mb-2"> 
+                <!-- descripcion de los pasos -->
+                <div class="row mb-3">
+                    <div class="col-12 mb-2">
                         <label class="form-label">Describa los pasos</label>
                         <input type="text" name="content" class="form-control" style="height: 150px;">
                         <!-- Altura fija -->
@@ -51,27 +52,43 @@
                 <!-- este quiero que sea un selector de categorias -->
                 <label class="form-label">Seleccione la categoria</label>
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected></option>
-
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select" id="floatingSelect" name='category_id'
+                        aria-label="Floating label select example">
+                        @foreach ($categorias as $categoria)
+                            <option value={{ $categoria->id }}>{{ $categoria->name }}</option>
+                        @endforeach
                     </select>
                     <label for="floatingSelect">Categoria</label>
                 </div>
-                <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
-                    @error('category_id')
-                        <div class="text-danger small mt-1">{{ $message }}
+
+                <br>
+                <!-- Campo ingredientes --> 
+                <!-- Podria existir un boton que le permita añadir rapidamente un nuevo ingrediente -->
+                <div class="row mb-3">
+                    <label class="form-label">Seleccione los ingredientes</label>
+                    <div class="container text-start mt-2">
+                        @foreach ($ingredientes as $ingrediente)
+                        <div class="row">
+                            <label class="col-6 col-sm-3 me-2">{{ $ingrediente->name }}</label>
+                            <input class="col-6 mb-2" type="number" name="ingredients[{{ $ingrediente->id }}][amount]"
+                                        placeholder="Cantidad">
+                        </div>
+                        @endforeach
+                    </div>
+                
+                    <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
+                        @error('ingredients')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
                     </div>
-                    
+                </div>
 
-                    <br>
-                    <!-- Botón -->
-                    <div class="text-start">
-                        <button type="submit" class="btn btn-primary px-4 py-2">Guardar</button>
-                    </div>
+                
+                <br>
+                <!-- Botón -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4 py-2">Guardar</button>
+                </div>
             </form>
         </div>
     </div>

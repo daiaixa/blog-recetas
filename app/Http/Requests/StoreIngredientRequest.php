@@ -27,8 +27,8 @@ class StoreIngredientRequest extends FormRequest
             'name' => [
                 'required',
                 'min:3',
-                'max:15',
-                Rule::unique('ingredients', 'name')->ignore($ingredienteId)
+                'max:50',
+                Rule::unique('ingredients', 'name')->ignore($ingredienteId) //solo se especifica para aquellos campos que son unicos, al momento de editarlos
             ]
         ];
     }
