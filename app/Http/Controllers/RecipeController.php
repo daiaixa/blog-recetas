@@ -60,11 +60,11 @@ class RecipeController extends Controller
         return view('recipes.edit', compact( 'categorias', 'categoria_receta', 'ingredientes', 'receta'));
     }
 
-    public function update(RecipeRequest $request, Recipe $id)
+    public function update(RecipeRequest $request, $id)
     {
 
-        dd($request);
-        $receta = Recipe::find($id);
+    
+       $receta = Recipe::find($id);
       //  $receta->ingredients()->sync($request->input('ingredients'));
 
         $receta->update($request->all());

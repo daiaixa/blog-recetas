@@ -1,3 +1,13 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <x-app-layout>
     <br>
     <br>
@@ -60,16 +70,14 @@
 
                     <select class="form-select" id="floatingSelect" name='category_id'
                         aria-label="Floating label select example">
-                        <option selected> Actualmente seleccionado: {{ strtoupper($categoria_receta->name) }}</option>
+                        <option selected value="{{ $categoria_receta->id }}"> {{$categoria_receta->name}}</option>
                         @foreach ($categorias as $categoria)
-                            @php
-                                $categoriaReceta = $receta->category->firstWhere('id', $categoria->id);
-                                
-                            @endphp
-                            <option value={{ $categoria->id }}>{{ $categoria->name }}</option>
+                            @if ($categoria->id != $categoria_receta->id)
+                                <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                            @endif
                         @endforeach
                     </select>
-                    <label for="floatingSelect">{{ $categoria_receta->name }}</label> <!-- REVISAR.. -->
+                    <label for="floatingSelect">{{ $categoria_receta->name }}</label>
                 </div>
 
                 <br>
@@ -107,4 +115,5 @@
             </form>
         </div>
     </div>
+
 </x-app-layout>
