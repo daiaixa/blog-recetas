@@ -22,7 +22,9 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        
         $categoriaId = $this->route('category');
+
         return [
             'name' => [
                 'required',

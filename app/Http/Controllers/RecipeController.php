@@ -33,17 +33,17 @@ class RecipeController extends Controller
     # php artisan make:request ModeloRequest
     public function store(RecipeRequest $request)
     {
-       // dd($request->ingredients);
+        // dd($request->ingredients);
         $receta = Recipe::create($request->except('ingredients')); //que guarde todo menos los ingredientes
 
         //previo filtrado para solo almacenar aquellos que tienen una cantidad
         $ingredientesValidos = array_filter(
             $request->input('ingredients', []),
             fn($data) => !empty($data['amount'])
-        ); 
+        );
         $receta->ingredients()->sync($ingredientesValidos); //teniendo en cuenta como viene del formulario
 
-        
+
         return redirect()
             ->route('recipes.index')
             ->with('success', 'Se ha creado correctamente');
@@ -51,16 +51,24 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
+        //traer la receta
         $receta = Recipe::find($id);
-        //dd($categoria->id);
-        return view('recipes.edit', compact('receta'));
+        $ingredientes = Ingredient::orderBy('name')->get();
+        $categorias = Category::all();
+        $categoria_receta = Category::find($receta->category_id);
+
+        return view('recipes.edit', compact( 'categorias', 'categoria_receta', 'ingredientes', 'receta'));
     }
 
-    public function update(RecipeRequest $request, $id)
+    public function update(RecipeRequest $request, Recipe $id)
     {
+
+        dd($request);
         $receta = Recipe::find($id);
+      //  $receta->ingredients()->sync($request->input('ingredients'));
 
         $receta->update($request->all());
+        
 
         return redirect()
             ->route('recipes.index')

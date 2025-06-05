@@ -81,9 +81,7 @@
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-
-                
+                </div>               
                 <br>
                 <!-- Botón -->
                 <div class="text-center">

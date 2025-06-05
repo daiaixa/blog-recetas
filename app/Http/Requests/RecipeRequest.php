@@ -23,9 +23,16 @@ class RecipeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $recipeId = $this->route('');
+
+        $recipes_id= $this->route('recipe');
+        
         return [
-            'title' => 'required|min:5|max:50|unique:recipes',
+            'title' => [
+                'required',
+                'min:5',
+                'max:50',
+                Rule::unique('recipes', 'title')->ignore($recipes_id) //solo se especifica para aquellos campos que son unicos, al momento de editarlos
+            ],
             'content' => 'required|min:5|max:250',
             'category_id' => 'required|integer|exists:categories,id' //exists:categories,id comprueba que el id se encuentre en la tabla categorias
         ];
@@ -33,6 +40,7 @@ class RecipeRequest extends FormRequest
 
 
     //Laravel permite agregar validaciones adicionales y personalizadas después de las reglas normales usando este método.
+    //valida que se haya seleccionado al menos un ingrediente y su cantidad
     public function withValidator(Validator $validator)
     {
         $validator->after(function ($validator) { //“Después de correr las validaciones normales, ejecutá esta función anónima.”
