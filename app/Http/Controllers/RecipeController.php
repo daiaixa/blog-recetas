@@ -57,18 +57,24 @@ class RecipeController extends Controller
         $categorias = Category::all();
         $categoria_receta = Category::find($receta->category_id);
 
-        return view('recipes.edit', compact( 'categorias', 'categoria_receta', 'ingredientes', 'receta'));
+        return view('recipes.edit', compact('categorias', 'categoria_receta', 'ingredientes', 'receta'));
     }
 
     public function update(RecipeRequest $request, $id)
     {
 
-    
-       $receta = Recipe::find($id);
-      //  $receta->ingredients()->sync($request->input('ingredients'));
+
+        $receta = Recipe::find($id);
+        //FILTRAR AQUELLOS QUE ESTEN NULOS 
+        $ingredientesValidos = array_filter(
+            $request->input('ingredients', []),
+            fn($data) => !empty($data['amount'])
+        );
+
+        $receta->ingredients()->sync($ingredientesValidos); //teniendo en cuenta como viene del formulario
 
         $receta->update($request->all());
-        
+
 
         return redirect()
             ->route('recipes.index')
