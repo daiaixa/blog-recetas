@@ -24,3 +24,5 @@ Route::resource('categories', CategoryController::class);
 Route::resource('ingredients', IngredientController::class)->except('show');
 
 Route::resource('recipes', RecipeController::class);
+
+Route::get('recipes/category/{category}', [RecipeController::class, 'showByCategory']) ->name('recipes.category'); 

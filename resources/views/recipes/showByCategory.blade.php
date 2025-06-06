@@ -1,4 +1,3 @@
-<!-- -->
 
 <x-app-layout>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,8 +16,8 @@
 
     <div class="container">
         <div>
-            <h3>CATEGORIAS: </h3>
-            <a class="btn btn-primary me-3" href={{ route('bienvenida') }} role="button">
+            <h3>Recetas por categoria ({{$categoria->name}}): </h3>
+            <a class="btn btn-primary me-3" href={{ route('categories.index') }} role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -28,33 +27,24 @@
             </svg>
             Voler atrás
         </a>
-            <a href="{{ route('categories.create') }}" class="btn btn-primary">
+            <a href="{{ route('recipes.create') }}" class="btn btn-primary">
                 <svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor"
                     class="bi bi-plus" viewBox="0 0 16 16">
                     <path
                         d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                 </svg> Crear</a>
         </div>
-        @if (empty($categorias))
-            <p class="text-danger">No hay categorías que mostrar</p>
+        @if (empty($recetas))
+            <p class="text-danger">No hay recetas que mostrar</p>
         @endif
 
-        @foreach ($categorias as $categoria)
+        @foreach ($recetas as $receta)
             <div class="row justify-content-center border border p-2 border-opacity-25 mt-2 p-lg-4"> 
                 <div class="col-8 flex-column justify-content-center align-items-center">
-                    <h5 class="m-0"> {{ $categoria->name }}</h5>
-                    <p class="m-0"> {{ $categoria->description }}</p>
+                    <h5 class="m-0"> {{ $receta->title }}</h5>
                 </div>
-                <div class="col ">
-                    <a href="{{ route('recipes.category', $categoria->id) }}" class="btn btn-primary mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-fork-knife" viewBox="0 0 16 16">
-                            <path
-                                d="M13 .5c0-.276-.226-.506-.498-.465-1.703.257-2.94 2.012-3 8.462a.5.5 0 0 0 .498.5c.56.01 1 .13 1 1.003v5.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zM4.25 0a.25.25 0 0 1 .25.25v5.122a.128.128 0 0 0 .256.006l.233-5.14A.25.25 0 0 1 5.24 0h.522a.25.25 0 0 1 .25.238l.233 5.14a.128.128 0 0 0 .256-.006V.25A.25.25 0 0 1 6.75 0h.29a.5.5 0 0 1 .498.458l.423 5.07a1.69 1.69 0 0 1-1.059 1.711l-.053.022a.92.92 0 0 0-.58.884L6.47 15a.971.971 0 1 1-1.942 0l.202-6.855a.92.92 0 0 0-.58-.884l-.053-.022a1.69 1.69 0 0 1-1.059-1.712L3.462.458A.5.5 0 0 1 3.96 0z" />
-                        </svg>
-                        Listar recetas</a>
-                        <br>
-                    <a href="{{ route('categories.show', $categoria->id) }}" class="btn btn-primary mt-1">
+                <div class="col-3">
+                    <a href="{{ route('recipes.show', $receta) }}" class="btn btn-primary mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-eye" viewBox="0 0 16 16">
                             <path
@@ -63,7 +53,7 @@
                                 d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
                         </svg>
                         Ver</a>
-                    <a href="{{ route('categories.edit', $categoria->id) }}" class="btn btn-primary mt-1">
+                    <a href="{{ route('recipes.edit', $receta) }}" class="btn btn-primary mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -73,7 +63,7 @@
                         </svg>
                         Editar</a>
                     <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal"
-                        data-bs-target="#modalCategory{{ $categoria->id }}">
+                        data-bs-target="#modalCategory{{ $receta->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -83,28 +73,26 @@
                         </svg>
                         Eliminar
                     </button>
-                    
-                    
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="modalCategory{{ $categoria->id }}" tabindex="-1"
-                    aria-labelledby="modalCategoryLabel{{ $categoria->id }}" aria-hidden="true">
+                <div class="modal fade" id="modalCategory{{ $receta->id }}" tabindex="-1"
+                    aria-labelledby="modalCategoryLabel{{ $receta->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCategoryLabel{{ $categoria->id }}">
+                                <h5 class="modal-title" id="modalCategoryLabel{{ $receta->id }}">
                                     Está por eliminar un elemento
                                 </h5>
                             </div>
                             <div class="modal-body">
-                                ¿Estás seguro de que deseas eliminar la categoría "{{ $categoria->name }}"?
+                                ¿Estás seguro de que deseas eliminar la receta "{{ $receta->title }}"?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                <form action="{{ route('categories.destroy', $categoria) }}" method="POST">
+                                <form action="{{ route('recipes.destroy', $receta) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Eliminar post</button>
+                                    <button type="submit" class="btn btn-danger">Eliminar receta</button>
                                 </form>
                             </div>
                         </div>

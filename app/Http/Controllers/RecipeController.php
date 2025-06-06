@@ -6,14 +6,14 @@ use App\Http\Requests\RecipeRequest;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Recipe;
-use Illuminate\Http\Request;
+
 
 class RecipeController extends Controller
 {
     public function index()
     {
-        $receta = Recipe::all();
-        return view('recipes.index', compact('receta'));
+        $recetas = Recipe::all();
+        return view('recipes.index', compact('recetas'));
     }
 
     public function create()
@@ -23,11 +23,33 @@ class RecipeController extends Controller
         return view('recipes.create', compact('categorias', 'ingredientes'));
     }
 
-    public function show(Recipe $receta)
+    public function show($id)
     {
-        // $ingrediente=Ingredient::find($id);
-        return view('recipes.show', compact('receta'));
+        $receta = Recipe::find($id);
+
+        $ingredientesReceta = [];
+        
+        foreach ($receta->ingredients as $ingrediente) {
+            $ingredientesReceta[] = [
+                'name' => $ingrediente->name,
+                'amount' => $ingrediente->pivot->amount //pivot es el nombre de la tabla intermedia
+            ];
+        }
+
+        return view('recipes.show', compact('receta', 'ingredientesReceta'));
     }
+
+    public function showByCategory($idCategory)
+    {
+
+        $recetas = Recipe::all()->where('category_id', $idCategory)->first()->get();
+
+
+        $categoria = Category::find($idCategory);
+        
+        return view('recipes.showByCategory', compact('recetas', 'categoria'));
+    }
+
 
     # se crea un Form Request para centralizar las reglas de validacion
     # php artisan make:request ModeloRequest
