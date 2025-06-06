@@ -41,10 +41,9 @@ class RecipeController extends Controller
 
     public function showByCategory($idCategory)
     {
-
-        $recetas = Recipe::all()->where('category_id', $idCategory)->first()->get();
-
-
+        
+        $recetas = Recipe::where('category_id', $idCategory)->get();
+  
         $categoria = Category::find($idCategory);
         
         return view('recipes.showByCategory', compact('recetas', 'categoria'));
