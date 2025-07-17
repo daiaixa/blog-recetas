@@ -39,7 +39,7 @@
         @endif
 
         @foreach ($recetas as $receta)
-            <div class="row justify-content-center border border p-2 border-opacity-25 mt-2 p-lg-4"> 
+            <div class="row justify-content-center border p-2 border-opacity-25 mt-2 p-lg-4"> 
                 <div class="col-8 flex-column justify-content-center align-items-center">
                     <h5 class="m-0"> {{ $receta->title }}</h5>
                 </div>

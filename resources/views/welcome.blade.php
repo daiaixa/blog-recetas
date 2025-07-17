@@ -1,5 +1,5 @@
 <!-- CARRUSEL -->
-<x-app-layout>
+
     <section>
         <a href="{{ route('categories.index') }}">
 
@@ -92,33 +92,21 @@
 
         </ul>
 
-        <h1 class="text-star ms-3 mt-3 mb-3">Recetas destacadas</h1>
+        <h1 class="text-star ms-5 mt-3 mb-3">Recetas destacadas</h1>
         <!-- estaria bueno que cargue las tarjetas con las tres recetas mas destacadas -->
-        <div class='container-fluid mt-2 ms-3 row aling-items-center justify-content-start'>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class='container-fluid mt-2 ms-5 row aling-items-center justify-content-start'>
+            @foreach ($recetas as $receta)
+                <div class="card text-bg-light d-flex flex-column justify-content-between me-3 mt-3" style="max-width: 18rem;">
+                    <div class="card-header">{{ $receta->category->name }}</div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $receta->title }}</h5>
+                        <p class="card-text">{{ $receta->content }}</p>
+                        <div class="mt-auto">
+                            <a href="{{route('recipes.show', $receta->id)}}" class="btn btn-primary">Ver aqui sus ingredientes</a>
+                        </div>   
+                    </div>
                 </div>
-            </div>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <!-- TODAS LAS RECETAS -->
