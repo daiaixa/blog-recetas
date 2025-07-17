@@ -53,7 +53,7 @@
     <section>
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link icon-link icon-link-hover" aria-current="page" href={{ route('recipes.index') }}>
+                <a class="nav-link icon-link icon-link-hover" aria-current="page" href="{{route('recipes.index')}}">
                     <h3 class="text-star ms-3 mt-3 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-fork-knife" viewBox="0 0 16 16">
