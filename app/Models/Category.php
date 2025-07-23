@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     protected $table = 'categories';
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'image_category'];
 
     //definimos la funcion que nos trae las recetas que pertenecen a una categoria
     public function recipes():HasMany 

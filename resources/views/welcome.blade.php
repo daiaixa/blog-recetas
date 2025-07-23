@@ -6,33 +6,12 @@
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="https://aprende.com/wp-content/uploads/2022/05/canapes.jpg" class="d-block w-100"
-                            alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h3 style="font-family: 'Walter Turncoat';">Entradas</h3>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://media.istockphoto.com/id/1403973419/es/foto/mesa-de-comida-extendida-en-la-mesa.jpg?s=612x612&w=0&k=20&c=L64uuvK0u2J9iGVqzU-FiCTfbAT0mHuNjc9IKWhJvDE="
-                            class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h3 style="font-family: 'Walter Turncoat';">Plato principal</h3>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
                         <img src="https://www.cocinadelirante.com/sites/default/files/images/2018/03/recetas-faciles-de-postres-con-fresa-y-yogurt.jpg"
                             class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h3 style="font-family: 'Walter Turncoat';">Postres</h3>
-                        </div>
                     </div>
                     <div class="carousel-item">
-
                         <img src="https://th.bing.com/th/id/R.041a3bfab5e963ad43bb730d5852cf1a?rik=aPQow5s1HzBUlA&riu=http%3a%2f%2f4.bp.blogspot.com%2f_kn2M0xjakeg%2fTHkcbjEKbgI%2fAAAAAAAAAB8%2fLBS_fY4xPmM%2fs1600%2f_DSC8590.jpg&ehk=za66OrYZovH2wp5B7BTml83ey4Xo7QxMo4JiZZG4pKg%3d&risl=&pid=ImgRaw&r=0"
                             class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h3 style="font-family: 'Walter Turncoat';">Panaderia</h3>
-                        </div>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -49,11 +28,11 @@
         </a>
     </section>
 
-    <!-- RECETAS DESTACADAS -->
+   
     <section>
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link icon-link icon-link-hover" aria-current="page" href="{{route('recipes.index')}}">
+                <a class="nav-link icon-link icon-link-hover" aria-current="page" href="{{ route('recipes.index') }}">
                     <h3 class="text-star ms-3 mt-3 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-fork-knife" viewBox="0 0 16 16">
@@ -89,44 +68,48 @@
                     </h3>
                 </a>
             </li>
-
         </ul>
+        
+ <!-- RECETAS DESTACADAS -->
+        <h1 class="text-star ms-5 mt-3 mb-3">Recetas destacadas</h1>
+        <!-- estaria bueno que cargue las tarjetas con las tres recetas mas destacadas -->
+        <div class='container-fluid mt-2 ms-3 row aling-items-center justify-content-center'>
+            @foreach ($recetasRandom as $receta)
+                <div class="card me-3 mt-3 d-flex flex-column" style="width: 20rem;height:20rem;">
+                    <img src="{{ $receta->image_recipe }}" class="card-img-top mt-2" alt="{{ $receta->title }}"
+                        style="width: 100%; height: 50%;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $receta->title }}</h5>
+                        <a href="{{ route('recipes.show', $receta->id) }}" class="btn btn-primary mt-auto "> Ver </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
 
-        <h1 class="text-star ms-3 mt-3 mb-3">Recetas destacadas</h1>
+    <!-- TODAS LAS RECETAS -->
+    <br>
+    <br> <!-- inventar algo por aca.... >
+    <br>
+    
+        <h1 class="text-star ms-5 mt-3 mb-3">Todas las recetas</h1>
         <!-- estaria bueno que cargue las tarjetas con las tres recetas mas destacadas -->
         <div class='container-fluid mt-2 ms-3 row aling-items-center justify-content-start'>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+            @foreach ($recetasTodas as $receta)
+                <div class="card me-3 mt-3 d-flex flex-column" style="width: 20rem;height:20rem;">
+                    <img src="{{ $receta->image_recipe }}" class="card-img-top m-auto mt-2" alt="{{ $receta->title }}"
+                        style="width: 80%; height: 50%;">
+                    <div class="card-body m-3 d-flex flex-column">
+                        <h5 class="card-title">{{ $receta->title }}</h5>
+                        <a href="{{ route('recipes.show', $receta->id) }}" class="btn btn-primary mt-auto"> Ver </a>
+                    </div>
                 </div>
-            </div>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card me-3 mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </section>
-    <!-- TODAS LAS RECETAS -->
+
     <section>
 
-
-
-        <!-- que se genere la lista dinamicamente -->
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

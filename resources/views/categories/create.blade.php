@@ -20,7 +20,7 @@
     <!-- formulario -->
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-center align-items-center">
-            <form action="{{ route('categories.store') }}" method="POST" class="w-100" style="max-width: 600px;">
+            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data" class="w-100" style="max-width: 600px;">
                 @csrf
                 <!-- Campo Nombre -->
                 <div class="row mb-3">
@@ -31,6 +31,19 @@
                     </div>
                     <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
                         @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12 mb-2"> <!-- Contenedor fijo para label + input -->
+                        <label class="form-label">Cargue una imagen para identificar la categoria:</label>
+                        <input type="file" name="image_category" class="form-control" style="height: 40px;">
+                        <!-- Altura fija -->
+                    </div>
+                    <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
+                        @error('title')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
                     </div>

@@ -20,13 +20,28 @@
     <!-- formulario -->
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-center align-items-center">
-            <form action="{{ route('recipes.store') }}" method="POST" class="w-100" style="max-width: 600px;">
+            <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data" class="w-100" style="max-width: 600px;">
+                
                 @csrf
                 <!-- Campo titulo -->
                 <div class="row mb-3">
                     <div class="col-12 mb-2"> <!-- Contenedor fijo para label + input -->
                         <label class="form-label">Titulo de la receta</label>
                         <input type="text" name="title" class="form-control" style="height: 40px;">
+                        <!-- Altura fija -->
+                    </div>
+                    <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
+                        @error('title')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Campo imagen -->
+                <div class="row mb-3">
+                    <div class="col-12 mb-2"> <!-- Contenedor fijo para label + input -->
+                        <label class="form-label">Cargue una imagen de la receta</label>
+                        <input type="file" name="image_recipe" class="form-control" style="height: 40px;">
                         <!-- Altura fija -->
                     </div>
                     <div class="col-12"> <!-- Mensaje de error fuera del flujo -->
@@ -70,7 +85,7 @@
                         @foreach ($ingredientes as $ingrediente)
                         <div class="row">
                             <label class="col-6 col-sm-3 me-2">{{ $ingrediente->name }}</label>
-                            <input class="col-6 mb-2" type="number" name="ingredients[{{ $ingrediente->id }}][amount]"
+                            <input class="col-6 mb-2" type="text" name="ingredients[{{ $ingrediente->id }}][amount]"
                                         placeholder="Cantidad">
                         </div>
                         @endforeach

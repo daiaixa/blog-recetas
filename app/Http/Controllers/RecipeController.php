@@ -28,7 +28,7 @@ class RecipeController extends Controller
         $receta = Recipe::find($id);
 
         $ingredientesReceta = [];
-        
+
         foreach ($receta->ingredients as $ingrediente) {
             $ingredientesReceta[] = [
                 'name' => $ingrediente->name,
@@ -41,11 +41,11 @@ class RecipeController extends Controller
 
     public function showByCategory($idCategory)
     {
-        
+
         $recetas = Recipe::where('category_id', $idCategory)->get();
-  
+
         $categoria = Category::find($idCategory);
-        
+
         return view('recipes.showByCategory', compact('recetas', 'categoria'));
     }
 
@@ -54,8 +54,17 @@ class RecipeController extends Controller
     # php artisan make:request ModeloRequest
     public function store(RecipeRequest $request)
     {
-        // dd($request->ingredients);
-        $receta = Recipe::create($request->except('ingredients')); //que guarde todo menos los ingredientes
+
+        if ($request->hasFile('image_recipe')) {
+            $imagePath = $request->file('image_recipe')->store('recetas', 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        $receta = Recipe::create([
+            ...$request->except(['ingredients', 'image_recipe']), // Excluye estos
+            'image_recipe' => $imagePath // Asigna la ruta correcta
+        ]);
 
         //previo filtrado para solo almacenar aquellos que tienen una cantidad
         $ingredientesValidos = array_filter(
@@ -63,7 +72,6 @@ class RecipeController extends Controller
             fn($data) => !empty($data['amount'])
         );
         $receta->ingredients()->sync($ingredientesValidos); //teniendo en cuenta como viene del formulario
-
 
         return redirect()
             ->route('recipes.index')

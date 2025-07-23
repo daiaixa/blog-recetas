@@ -7,18 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <!-- Styles -->
-    <style>
-        .carousel {
-            height: 200px;
-            background-color: #eee;
-        }
 
-        .carousel-item img {
-            object-fit: cover;
-            height: 200px;
-        }
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+   
+    <!-- Styles -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

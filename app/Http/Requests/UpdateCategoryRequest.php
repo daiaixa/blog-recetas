@@ -33,6 +33,14 @@ class UpdateCategoryRequest extends FormRequest
                 Rule::unique('categories', 'name')->ignore($categoriaId)
             ]
         ];
+        // Solo valida la imagen si es creación (no en edición)
+        if ($this->isMethod('post')) {
+            $rules['image_category'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules['image_category'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
+        return $rules;
     }
 }
  

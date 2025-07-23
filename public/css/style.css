@@ -1,0 +1,9 @@
+.carousel {
+    height: 200px;
+    background-color: #eee;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 200px;
+}

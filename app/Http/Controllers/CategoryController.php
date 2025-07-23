@@ -30,7 +30,19 @@ class CategoryController extends Controller
     # php artisan make:request UpdateCategoryRequest
     public function store(UpdateCategoryRequest $request)
     {
-        $categoria = Category::create($request->all());
+        
+        if ($request->hasFile('image_category')) {
+            $imagePath = $request->file('image_category')->store('categorias', 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        // 'name', 'description', 'image_category'
+        $categoria = Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image_category' => $imagePath,
+        ]);
 
         return redirect()
             ->route('categories.index')
@@ -46,9 +58,16 @@ class CategoryController extends Controller
 
     public function update(UpdateCategoryRequest $request, $categoria)
     {
+
         $categoria = Category::find($categoria);
 
+        $imagePath = null;
+        if ($request->hasFile('image_category')) {
+            $imagePath = $request->file('image_category')->store('categorias', 'public');
+        }
+        $categoria->image_category = $imagePath; //asignamos la ruta de la imagen a la categoria
         $categoria->update($request->all());
+
 
         return redirect()
             ->route('categories.index')

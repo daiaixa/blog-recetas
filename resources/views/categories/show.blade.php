@@ -17,6 +17,10 @@
     <br>
     <br>
     <div class="container text-center">
+        <div class="col-md-4 mb-3">
+                <img src="{{ asset('storage/' . $categoria->image_category) }}" class="img-fluid rounded shadow mt-3" alt="{{ $categoria->name }}"
+                    style="max-height: 400px; width: 100%; object-fit: cover;">
+            </div>
         <div class="row justify-content-center card border-dark mb-3">
             <div class="card-header">Categoria</div>
             <div class="card-body">

@@ -24,8 +24,8 @@ class RecipeRequest extends FormRequest
     public function rules(): array
     {
 
-        $recipes_id= $this->route('recipe');
-        
+        $recipes_id = $this->route('recipe');
+
         return [
             'title' => [
                 'required',
@@ -34,8 +34,17 @@ class RecipeRequest extends FormRequest
                 Rule::unique('recipes', 'title')->ignore($recipes_id) //solo se especifica para aquellos campos que son unicos, al momento de editarlos
             ],
             'content' => 'required|min:5|max:250',
-            'category_id' => 'required|integer|exists:categories,id' //exists:categories,id comprueba que el id se encuentre en la tabla categorias
+            'category_id' => 'required|integer|exists:categories,id', //exists:categories,id comprueba que el id se encuentre en la tabla categorias
         ];
+
+        // Solo valida la imagen si es creación (no en edición)
+        if ($this->isMethod('post')) {
+            $rules['image_recipe'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules['image_recipe'] = 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
+        return $rules;
     }
 
 
