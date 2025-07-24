@@ -9,12 +9,12 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
 
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-   
+
     <!-- Styles -->
     <link href="css/style.css" rel="stylesheet">
 
     <style>
-        
+
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,7 @@
     <title>{{ $title ?? 'Las recetas de la Tia Nona' }}</title>
 </head>
 
+<!-- redes sociales -->
 <header>
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
@@ -59,14 +60,13 @@
         </div>
     </div>
 
+    <!-- barra superior del navegador -->
     <div class='container-fluid mt-2'>
         <div class='row aling-items-center'>
             <div class='col-auto'>
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link btn btn-outline-info" id="pills-home-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                            aria-selected="true">
+                        <a href= "{{route('login')}}" class="nav-link btn btn-outline-info" >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -74,7 +74,8 @@
                                 <path fill-rule="evenodd"
                                     d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
                             </svg>
-                            Log In</button>
+                            Iniciar sesión 
+                        </a>
                     </li>
                 </ul>
             </div>
