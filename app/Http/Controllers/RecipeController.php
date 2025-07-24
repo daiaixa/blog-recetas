@@ -55,6 +55,8 @@ class RecipeController extends Controller
     public function store(RecipeRequest $request)
     {
 
+        dd($request->file('image_recipe')->isValid());
+
         if ($request->hasFile('image_recipe')) {
             $imagePath = $request->file('image_recipe')->store('recetas', 'public');
         } else {
@@ -102,8 +104,19 @@ class RecipeController extends Controller
 
         $receta->ingredients()->sync($ingredientesValidos); //teniendo en cuenta como viene del formulario
 
-        $receta->update($request->all());
+        if ($request->hasFile('image_recipe')) {
+            $imagePath = $request->file('image_recipe')->store('recetas', 'public');
+        } else {
+            $imagePath = null;
+        }
 
+        ['title', 'content', 'category_id', 'image_recipe'];
+        $receta->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'image_recipe' => $imagePath
+        ]);
 
         return redirect()
             ->route('recipes.index')
