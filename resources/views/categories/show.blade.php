@@ -17,21 +17,26 @@
     <br>
     <br>
     <div class="container text-center">
-        <div class="col-md-4 mb-3">
-                <img src="{{ asset('storage/' . $categoria->image_category) }}" class="img-fluid rounded shadow mt-3" alt="{{ $categoria->name }}"
-                    style="max-height: 400px; width: 100%; object-fit: cover;">
-            </div>
         <div class="row justify-content-center card border-dark mb-3">
             <div class="card-header">Categoria</div>
-            <div class="card-body">
-                <h5 class="card-title">{{ $categoria->name }}</h5>
-                @if (empty($categoria->description ))
-                    <p class="card-text">Sin descripción</p>
-                @else
-                    <p class="card-text">{{ $categoria->description }}</p>
-                @endif
+            <div class="row"> <!-- Contenedor principal flex -->
+                <div class="col-md-4 mb-3">
+                    <img src="{{ $categoria->image_url }}" class="img-fluid rounded shadow mt-3"
+                        alt="{{ $categoria->title }}" style="max-height: 400px; width: 100%; object-fit: cover;">
+                </div>
+                <div class="col-md-8 mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $categoria->name }}</h5>
+                        @if (empty($categoria->description))
+                            <p class="card-text">Sin descripción</p>
+                        @else
+                            <p class="card-text">{{ $categoria->description }}</p>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
 

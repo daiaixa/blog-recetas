@@ -20,26 +20,35 @@
     <!-- formulario -->
     <div class="container-fluid p-4">
         <div class="d-flex justify-content-center align-items-center">
-            <form action={{ route('categories.update', $categoria) }} method="POST" enctype="multipart/form-data" class="w-100"
-                style="max-width: 600px;">
+            <form action={{ route('categories.update', $categoria) }} method="POST" enctype="multipart/form-data"
+                class="w-100" style="max-width: 600px;">
                 @csrf
                 @method('PUT')
 
                 <!-- Campo Nombre -->
                 <div class="row mb-3">
-                    <div class="col-6 mb-2"> 
+                    <div class="col-6 mb-2">
                         <label class="form-label">Nombre de categoría</label>
                         <input type="text" name="name" class="form-control" style="height: 40px;"
                             value="{{ old('contenido', $categoria->name) }}">
                     </div>
                     <div class="col-6"> <!-- Mensaje de error fuera del flujo -->
-                        @error('name') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                        @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <!-- Campo Imagen -->
                 <div class="row mb-3">
                     <div class="col-12 mb-2"> <!-- Contenedor fijo para label + input -->
-                        <label class="form-label">Cargue una imagen para identificar la categoria:</label>
+                        <label class="form-label">Imagen de la categoria</label>
+
+                        @if (isset($categoria) && $categoria->image_recipe)
+                            <div class="mb-3">
+                                <img src="{{ $categoria->image_url }}" class="img-thumbnail" style="max-height: 200px;">
+                            </div>
+                        @endif
+
                         <input type="file" name="image_category" class="form-control" style="height: 40px;">
                         <!-- Altura fija -->
                     </div>

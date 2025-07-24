@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $categoria=Category::find($id);
+        $categoria = Category::find($id);
         return view('categories.show', compact('categoria'));
     }
 
@@ -30,14 +30,12 @@ class CategoryController extends Controller
     # php artisan make:request UpdateCategoryRequest
     public function store(UpdateCategoryRequest $request)
     {
-        
         if ($request->hasFile('image_category')) {
             $imagePath = $request->file('image_category')->store('categorias', 'public');
         } else {
             $imagePath = null;
         }
 
-        // 'name', 'description', 'image_category'
         $categoria = Category::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -52,22 +50,23 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $categoria = Category::find($id);
-        //dd($categoria->id);
         return view('categories.edit', compact('categoria'));
     }
 
     public function update(UpdateCategoryRequest $request, $categoria)
     {
-
         $categoria = Category::find($categoria);
 
         $imagePath = null;
         if ($request->hasFile('image_category')) {
             $imagePath = $request->file('image_category')->store('categorias', 'public');
         }
-        $categoria->image_category = $imagePath; //asignamos la ruta de la imagen a la categoria
-        $categoria->update($request->all());
 
+        $categoria->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image_category' => $imagePath
+        ]);
 
         return redirect()
             ->route('categories.index')
